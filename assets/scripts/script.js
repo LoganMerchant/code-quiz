@@ -1,76 +1,81 @@
+var highScoresEl = document.querySelector('#high-scores');
 var timerEl = document.querySelector('#timer');
-var startButtonEl = document.querySelector('.start-btn');
 var mainEl = document.querySelector("main");
-var introEl = document.querySelector("#intro");
+var titleEl = document.querySelector('.title')
+var infoEl = document.querySelector(".info");
+var startButtonEl = document.querySelector('#start-btn');
 
 
-var questions = [
+var questionsObj = [
     {
         question: "Which of the following is responsible for the way a page is styled?",
-        option1: "HTML",
-        option2: "CSS",
-        option3: "Javascript",
-        option4: "JSON",
-        // answer: questions.option2,
+        choice1: "HTML",
+        choice2: "CSS",
+        choice3: "Javascript",
+        choice4: "JSON",
+        answer: this.choice2,
     },
 ];
 
-var startTimer = function(questions) {
-    var timeLeft = 3;
+var startTimer = function() {
+    var timeLeft = 30;
     var timeInterval = setInterval(function() {
         if (timeLeft > 1) {
-            timerEl.textContent = (timeLeft + " seconds left...");
+            timerEl.textContent = ('Time Left: ' + timeLeft + ' seconds');
             timeLeft--;
         }
         else if (timeLeft === 1) {
-            timerEl.textContent = (timeLeft + ' second left...');
+            timerEl.textContent = ('Time Left: ' + timeLeft + ' second');
             timeLeft--;
         }
         else if (timeLeft < 1) {
             timerEl.textContent = "Time's Up!";
             clearInterval(timeInterval);
-            endGame();
+            endQuiz();
         }
     }, 1000); 
 };
 
-var startQuiz = function() {
-    var buttonContainerEl = document.createElement('div');
-    buttonContainerEl.className = "btn-container";
+var formatQuiz = function() {
+    titleEl.remove();
+    infoEl.remove();
+    startButtonEl.remove();
 
-    var answerButtonEl1 = document.createElement('button');
-    var answerButtonEl2 = document.createElement('button');
-    var answerButtonEl3 = document.createElement('button');
-    var answerButtonEl4 = document.createElement('button');
-    answerButtonEl1.className = "btn";
-    answerButtonEl2.className = "btn";
-    answerButtonEl3.className = "btn";
-    answerButtonEl4.className = "btn";
+    var quizContainerEl = document.createElement('div');
+    quizContainerEl.className = "quiz-container";
 
+    var quizQuestionEl = document.createElement('h1');
+    quizQuestionEl.className = 'title'
 
-    mainEl.removeChild(startButtonEl);
-    mainEl.appendChild(buttonContainerEl);
+    var quizChoicesContainer = document.createElement('div');
+    quizChoicesContainer.className = "btn-container"
+    
+    var quizAnswerConfirm = document.createElement('p');
+    quizAnswerConfirm.className = 'info'
 
-    for (var i = 0; i < questions.length; i++) {
-        introEl.textContent = questions[i].question;
+    quizContainerEl.appendChild(quizQuestionEl);
 
-        buttonContainerEl.appendChild(answerButtonEl1);
-        answerButtonEl1.textContent = questions[i].option1;
+    for (i = 0; i < 4; i++) {
+        var quizChoicesEl = document.createElement('button');
+        quizChoicesEl.className = "btn";    
 
-        buttonContainerEl.appendChild(answerButtonEl2);
-        answerButtonEl2.textContent = questions[i].option2;
-        
-        buttonContainerEl.appendChild(answerButtonEl3);
-        answerButtonEl3.textContent = questions[i].option3;
-
-        buttonContainerEl.appendChild(answerButtonEl4)
-        answerButtonEl4.textContent = questions[i].option4;
+        quizChoicesEl.setAttribute('data-id', [i]); 
+        quizChoicesContainer.appendChild(quizChoicesEl);
     };
+    quizContainerEl.appendChild(quizChoicesContainer);
+    quizContainerEl.appendChild(quizAnswerConfirm);
+    mainEl.appendChild(quizContainerEl);
+
+    startQuiz();
+};
+
+var startQuiz = function(questionsObj) {
+
 }
 
-var endGame = function() {
+var endQuiz = function() {
     
 };
 
+startButtonEl.addEventListener('click', formatQuiz);
 startButtonEl.addEventListener('click', startTimer);
-startButtonEl.addEventListener('click', startQuiz);
