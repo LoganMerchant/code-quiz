@@ -19,23 +19,27 @@ var startQuiz = function(questions) {
     var timeLeft = 10;
     var timeInterval = setInterval(function() {
         if (timeLeft > 1) {
-            timerEl.textContent = (timeLeft + " seconds left.");
+            timerEl.textContent = (timeLeft + " seconds left...");
             timeLeft--;
         }
-        else if (timeLeft = 1) {
-            timerEl.textContent = (timeLeft + ' second left.');
+        else if (timeLeft === 1) {
+            timerEl.textContent = (timeLeft + ' second left...');
             timeLeft--;
         }
         else if (timeLeft < 1) {
-            timerEl.textContent = "";
+            timerEl.textContent = "Time's Up!";
             clearInterval(timeInterval);
-            // endGame();
+            endGame();
         }
     }, 1000); 
 
-    for (var i = 0; i < questions.length; i++) {
-        introEl.textContent = questions[i].question;
-    };
+    // for (var i = 0; i < questions.length; i++) {
+    //     introEl.textContent = questions[i].question;
+    // };
+};
+
+var endGame = function() {
+    console.log('hey');
 };
 
 startButtonEl.addEventListener('click', startQuiz);
