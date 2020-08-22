@@ -62,16 +62,34 @@ var formatQuiz = function() {
         quizChoicesEl.setAttribute('data-id', [i]); 
         quizChoicesContainer.appendChild(quizChoicesEl);
     };
+
     quizContainerEl.appendChild(quizChoicesContainer);
     quizContainerEl.appendChild(quizAnswerConfirm);
     mainEl.appendChild(quizContainerEl);
 
-    startQuiz();
+    startQuiz(questionsObj);
 };
 
-var startQuiz = function(questionsObj) {
+var startQuiz = function() {
+    var quizQuestionEl = document.querySelector('.title');
+    var quizChoiceOne = document.querySelector('.btn[data-id="0"]');
+    var quizChoiceTwo = document.querySelector('.btn[data-id="1"]');
+    var quizChoiceThree = document.querySelector('.btn[data-id="2"]');
+    var quizChoiceFour = document.querySelector('.btn[data-id="3"]');
+    var quizAnswerConfirm = document.querySelector('.info');
 
-}
+    for (var i = 0; i < questionsObj.length; i++) {
+    quizQuestionEl.textContent = questionsObj[i].question;
+
+    quizChoiceOne.textContent = questionsObj[i].choice1;
+    quizChoiceTwo.textContent = questionsObj[i].choice2;
+    quizChoiceThree.textContent = questionsObj[i].choice3;
+    quizChoiceFour.textContent = questionsObj[i].choice4;
+
+    quizAnswerConfirm.textContent = questionsObj[i].answer;
+    };
+
+};
 
 var endQuiz = function() {
     
