@@ -43,12 +43,15 @@ main h2 {
     text-align: center;
 }
 
-main button {
-    margin: 15px;
-    border-radius: 20px;
-    width: 15%;
-    padding: 10px 0;
-}
 .btn {
     background-color: var(--secondary-color);
+    margin: 15px;
+    width: 100px;
+    border-radius: 20px;
+    padding: 10px 0;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-evenly;
 }
