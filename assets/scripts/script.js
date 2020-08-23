@@ -4,7 +4,7 @@ var mainEl = document.querySelector("main");
 var titleEl = document.querySelector('.title')
 var infoEl = document.querySelector(".info");
 var startButtonEl = document.querySelector('#start-btn');
-
+var index = 0;
 
 var questionsObj = [
     {
@@ -14,6 +14,14 @@ var questionsObj = [
         choice3: "Javascript",
         choice4: "JSON",
         answer: this.choice2,
+    },
+    {
+        question: "What brackets are used to store properties in an array?",
+        choice1: "[ ]",
+        choice2: '{ }',
+        choice3: '( )',
+        choice4: '< >',
+        answer: this.choice1,
     },
 ];
 
@@ -36,7 +44,7 @@ var startTimer = function() {
     }, 1000); 
 };
 
-var formatQuiz = function() {
+var startQuiz = function() {
     titleEl.remove();
     infoEl.remove();
     startButtonEl.remove();
@@ -47,7 +55,7 @@ var formatQuiz = function() {
     var quizQuestionEl = document.createElement('h1');
     quizQuestionEl.className = 'title'
 
-    var quizChoicesContainer = document.createElement('div');
+    var quizChoicesContainer = document.createElement('ul');
     quizChoicesContainer.className = "btn-container"
     
     var quizAnswerConfirm = document.createElement('p');
@@ -56,7 +64,7 @@ var formatQuiz = function() {
     quizContainerEl.appendChild(quizQuestionEl);
 
     for (i = 0; i < 4; i++) {
-        var quizChoicesEl = document.createElement('button');
+        var quizChoicesEl = document.createElement('li');
         quizChoicesEl.className = "btn";    
 
         quizChoicesEl.setAttribute('data-id', [i]); 
@@ -66,16 +74,45 @@ var formatQuiz = function() {
     quizContainerEl.appendChild(quizAnswerConfirm);
     mainEl.appendChild(quizContainerEl);
 
-    startQuiz();
+    formatQuestions(questionsObj);
 };
 
-var startQuiz = function(questionsObj) {
+var formatQuestions = function(questionsObj) {
+    var quizChoicesContainer = document.querySelector('.btn-container');
+    var quizQuestionEl = document.querySelector('.title');
+    var quizChoice1 = document.querySelector('li[data-id="0"]');
+    var quizChoice2 = document.querySelector('li[data-id="1"]');
+    var quizChoice3 = document.querySelector('li[data-id="2"]');
+    var quizChoice4 = document.querySelector('li[data-id="3"]');
 
-}
+    quizQuestionEl.textContent = questionsObj[index].question;
+    quizChoice1.textContent = questionsObj[index].choice1;
+    quizChoice2.textContent = questionsObj[index].choice2;
+    quizChoice3.textContent = questionsObj[index].choice3;
+    quizChoice4.textContent = questionsObj[index].choice4;
+
+    quizChoicesContainer.addEventListener('click', clickedAnswerHandler);
+};
 
 var endQuiz = function() {
-    
+    console.log('STOP')
 };
 
-startButtonEl.addEventListener('click', formatQuiz);
+var clickedAnswerHandler = function(event) {
+    var quizAnswerConfirm = document.querySelector('.info');
+    var targetEl = event.target;
+    var answer = questionsObj[index].answer;
+
+    if (targetEl.matches(answer)) {
+        quizAnswerConfirm.textContent = "Correct!";
+    } else {
+        quizAnswerConfirm.textContent = 'Incorrect!';
+    }
+
+    index++;
+
+    return formatQuestions(questionsObj);
+};
+
+startButtonEl.addEventListener('click', startQuiz);
 startButtonEl.addEventListener('click', startTimer);
