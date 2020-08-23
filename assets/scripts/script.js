@@ -112,14 +112,21 @@ var endQuiz = function() {
 
     timeLeft = 0;
 
-    var quizContainerEl = document.createElement('div');
+    var quizContainerEl = document.createElement('form');
     quizContainerEl.className = "quiz-container";
 
     titleEl.textContent = "Quiz Finished";
-    quizContainerEl.innerHTML = '<label>Save your score!</label> <input type="text" placeholder="Your Name"></input> <h3>Your score: ' + score + '.<button type="submit" value="Submit">Submit</button>';
+    quizContainerEl.innerHTML = '<label>Save your score!</label> <input type="text" name="name" placeholder="Your Name"></input> <h3>Your score: ' + score + '. <button type="submit" value="Submit">Submit</button>';
 
+    console.log(quizContainerEl);
     mainEl.appendChild(quizContainerEl);
-    
+
+    if (score < localStorage.getItem('score')) {
+        window.alert('You did not beat the high score.')
+        location.reload();
+    }
+
+    quizContainerEl.addEventListener('submit', saveHighScoreHandler);
 };
 
 var clickedAnswerHandler = function(event) {
@@ -138,6 +145,18 @@ var clickedAnswerHandler = function(event) {
     index++;
 
     return formatQuestions(questionsObj);
+};
+
+var saveHighScoreHandler = function() {
+    var name = document.querySelector('input[name="name"]').value;
+    if (!name) {
+            window.alert('Please enter your name.')
+            return endQuiz();
+        };
+
+    window.alert('Congrats! You beat the high score!')
+    localStorage.setItem('score', score);
+    localStorage.setItem('name', name);
 };
 
 startButtonEl.addEventListener('click', startQuiz);
