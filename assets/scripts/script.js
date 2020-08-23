@@ -124,6 +124,8 @@ var endQuiz = function() {
     if (score < localStorage.getItem('score')) {
         window.alert('You did not beat the high score.')
         location.reload();
+    } else if (score > localStorage.getItem('score')) {
+        window.alert('Congrats! You beat the high score!')
     }
 
     quizContainerEl.addEventListener('submit', saveHighScoreHandler);
@@ -149,14 +151,14 @@ var clickedAnswerHandler = function(event) {
 
 var saveHighScoreHandler = function() {
     var name = document.querySelector('input[name="name"]').value;
+
+    localStorage.setItem('score', score);
+    localStorage.setItem('name', name);
+
     if (!name) {
             window.alert('Please enter your name.')
             return endQuiz();
         };
-
-    window.alert('Congrats! You beat the high score!')
-    localStorage.setItem('score', score);
-    localStorage.setItem('name', name);
 };
 
 startButtonEl.addEventListener('click', startQuiz);
