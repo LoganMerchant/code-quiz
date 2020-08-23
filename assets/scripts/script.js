@@ -54,15 +54,14 @@ var startTimer = function() {
 };
 
 var startQuiz = function() {
-    titleEl.remove();
     infoEl.remove();
     startButtonEl.remove();
 
     var quizContainerEl = document.createElement('div');
     quizContainerEl.className = "quiz-container";
 
-    var quizQuestionEl = document.createElement('h1');
-    quizQuestionEl.className = 'title'
+    var titleEl = document.createElement('h1');
+    titleEl.className = 'title'
 
     var quizChoicesContainer = document.createElement('ul');
     quizChoicesContainer.className = "btn-container"
@@ -70,7 +69,7 @@ var startQuiz = function() {
     var quizAnswerConfirm = document.createElement('p');
     quizAnswerConfirm.className = 'info'
 
-    quizContainerEl.appendChild(quizQuestionEl);
+    quizContainerEl.appendChild(titleEl);
 
     for (i = 0; i < 4; i++) {
         var quizChoicesEl = document.createElement('li');
@@ -88,23 +87,39 @@ var startQuiz = function() {
 
 var formatQuestions = function(questionsObj) {
     var quizChoicesContainer = document.querySelector('.btn-container');
-    var quizQuestionEl = document.querySelector('.title');
+    var titleEl = document.querySelector('.title');
     var quizChoice1 = document.querySelector('li[data-id="0"]');
     var quizChoice2 = document.querySelector('li[data-id="1"]');
     var quizChoice3 = document.querySelector('li[data-id="2"]');
     var quizChoice4 = document.querySelector('li[data-id="3"]');
 
-    quizQuestionEl.textContent = questionsObj[index].question;
-    quizChoice1.textContent = questionsObj[index].choice1;
-    quizChoice2.textContent = questionsObj[index].choice2;
-    quizChoice3.textContent = questionsObj[index].choice3;
-    quizChoice4.textContent = questionsObj[index].choice4;
+    if (index < questionsObj.length) {
+        titleEl.textContent = questionsObj[index].question;
+        quizChoice1.textContent = questionsObj[index].choice1;
+        quizChoice2.textContent = questionsObj[index].choice2;
+        quizChoice3.textContent = questionsObj[index].choice3;
+        quizChoice4.textContent = questionsObj[index].choice4;
 
-    quizChoicesContainer.addEventListener('click', clickedAnswerHandler);
+        quizChoicesContainer.addEventListener('click', clickedAnswerHandler);
+    } else {
+        endQuiz();
+    };
 };
 
 var endQuiz = function() {
-    console.log('STOP')
+    var quizContainerEl = document.querySelector('.quiz-container');
+    quizContainerEl.remove();
+
+    timeLeft = 0;
+
+    var quizContainerEl = document.createElement('div');
+    quizContainerEl.className = "quiz-container";
+
+    titleEl.textContent = "Quiz Finished";
+    quizContainerEl.innerHTML = '<label>Save your score!</label> <input type="text" placeholder="Your Name"></input> <h3>Your score: ' + score + '.<button type="submit" value="Submit">Submit</button>';
+
+    mainEl.appendChild(quizContainerEl);
+    
 };
 
 var clickedAnswerHandler = function(event) {
