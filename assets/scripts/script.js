@@ -5,34 +5,90 @@ var titleEl = document.querySelector('.title')
 var infoEl = document.querySelector(".info");
 var startButtonEl = document.querySelector('#start-btn');
 var index = 0;
-var timeLeft = 30;
+var timeLeft = 60;
 var score = 0;
 
 var questionsObj = [
     {
-        question: "Which of the following is responsible for the way a page is styled?",
-        choice1: "HTML",
-        choice2: "CSS",
-        choice3: "Javascript",
-        choice4: "JSON",
+        question: "What are the two main components of an HTML document?",
+        choice1: "<head> & <body>",
+        choice2: "<head> & <main>",
+        choice3: "<body> & <main>",
+        choice4: "<button> & </button>",
+        answer: '0',
+    },
+    {
+        question: "What does the <a> tag in an HTML document stand for?",
+        choice1: "Acronym",
+        choice2: 'Anchor',
+        choice3: 'Arbitrary',
+        choice4: 'Apple',
         answer: '1',
     },
     {
-        question: "What brackets are used to store properties in an array?",
-        choice1: "[ ]",
-        choice2: '{ }',
-        choice3: '( )',
-        choice4: '< >',
+        question: "What does HTML stand for?",
+        choice1: "Hypertext Markdown Language",
+        choice2: "Hot Text Makeup Language",
+        choice3: "Hypertext Markup Language",
+        choice4: "It's just a name",
+        answer: '2',
+    },
+    {
+        question: "What purpose does CSS fulfill?",
+        choice1: "It styles an HTML document.",
+        choice2: "It tells an HTML document how to perform.",
+        choice3: "It's a modern version of HTML.",
+        choice4: "It stores data on a server.",
         answer: '0',
     },
     {
-        question: "Guinness tastes good?",
-        choice1: "Yes",
-        choice2: "No",
-        choice3: "Eh",
-        choice4: "Maybe",
+        question: "What does CSS stand for?",
+        choice1: "Continuous Style Sheets",
+        choice2: "Crazy Stylish Sheets",
+        choice3: "Cascading Sheets of Style",
+        choice4: "Cascading Style Sheets",
+        answer: '3',
+    },
+    {
+        question: "Which brackets encompass CSS declarations?",
+        choice1: "[ ]",
+        choice2: "{ }",
+        choice3: "( )",
+        choice4: "< >",
+        answer: '1',
+    },
+    {
+        question: "What is the common abbreviation for JavaScript?",
+        choice1: "J/S",
+        choice2: "JScript",
+        choice3: "JavaS",
+        choice4: "JS",
+        answer: '3',
+    },
+    {
+        question: "Which HTML tags are needed to link a Javascript document?",
+        choice1: "<script> </script>",
+        choice2: "<java> </java>",
+        choice3: "<js> </js>",
+        choice4: "<program> </program>",
         answer: '0',
-    }
+    },
+    {
+        question: "What is the code within a JavaScript function commonly called?",
+        choice1: "JavaScript Code",
+        choice2: "Logic",
+        choice3: "Commands",
+        choice4: "Function Occurances",
+        answer: '1',
+    },
+    {
+        question: "JavaScript objects hold data in which of the following ways?",
+        choice1: "function: parameter",
+        choice2: "value: class",
+        choice3: "property: value",
+        choice4: "class: value",
+        answer: '2',
+    },
 ];
 
 var startTimer = function() {
@@ -141,7 +197,7 @@ var clickedAnswerHandler = function(event) {
         score++;
     } else {
         quizAnswerConfirm.textContent = 'Incorrect!';
-        timeLeft = (timeLeft - 3);
+        timeLeft = (timeLeft - 5);
     }
 
     index++;
