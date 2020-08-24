@@ -166,8 +166,19 @@ var endQuiz = function() {
     var quizContainerEl = document.querySelector('.quiz-container');
     quizContainerEl.remove();    
 
-    var scoreInputEl = document.createElement('form');
-    scoreInputEl.className = "content";
+    var scoreInputContainerEl = document.createElement('form');
+    scoreInputContainerEl.className = "content";
+
+    var scoreInput = document.createElement('input');
+    scoreInput.setAttribute('placeholder', 'Your Name');
+    scoreInput.setAttribute('name', 'name')
+    scoreInput.setAttribute('type', 'text');
+
+    var scoreSubmit = document.createElement('button');
+    scoreSubmit.className = 'btn';
+    scoreSubmit.textContent = "Submit"
+    scoreSubmit.setAttribute('type', 'submit');
+    scoreSubmit.setAttribute('value', "Submit");
     
     timeLeft = 0;
     
@@ -179,11 +190,13 @@ var endQuiz = function() {
     };
 
     titleEl.textContent = "Quiz Finished";
-    scoreInputEl.innerHTML = '<label>Save your score!</label> <h4>Your score: ' + score + '</h4> <input type="text" name="name" placeholder="Your Name"></input>  <button type="submit" value="Submit">Submit</button>';
+    scoreInputContainerEl.innerHTML = '<label>Save your score of ' + score + '!</label>';
 
-    mainEl.appendChild(scoreInputEl);
+    scoreInputContainerEl.appendChild(scoreInput);
+    scoreInputContainerEl.appendChild(scoreSubmit);
+    mainEl.appendChild(scoreInputContainerEl);
 
-    scoreInputEl.addEventListener('submit', saveHighScoreHandler);
+    scoreInputContainerEl.addEventListener('submit', saveHighScoreHandler);
 };
 
 var clickedAnswerHandler = function(event) {
@@ -212,7 +225,7 @@ var saveHighScoreHandler = function(event) {
             window.alert('Please enter your name.');
             return;
     };
-            
+
     localStorage.setItem('score', score);
     localStorage.setItem('name', name);
     location.reload();
