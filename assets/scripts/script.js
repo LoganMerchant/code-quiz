@@ -176,7 +176,8 @@ var endQuiz = function() {
 
     var scoreSubmit = document.createElement('button');
     scoreSubmit.className = 'btn';
-    scoreSubmit.textContent = "Submit"
+    scoreSubmit.textContent = "Submit";
+    scoreSubmit.setAttribute('id', 'submit-btn');
     scoreSubmit.setAttribute('type', 'submit');
     scoreSubmit.setAttribute('value', "Submit");
     
@@ -185,7 +186,7 @@ var endQuiz = function() {
     if (score < localStorage.getItem('score')) {
         window.alert('You did not beat the high score.')
         location.reload();
-    } else if (score > localStorage.getItem('score')) {
+    } else if (score >= localStorage.getItem('score')) {
         window.alert('Congrats! You beat the high score!')
     };
 
