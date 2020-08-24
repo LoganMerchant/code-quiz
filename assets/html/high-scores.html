@@ -16,17 +16,15 @@
 
     <main>
         <h2 class="title">High Score</h2>
-        <ol class="content">
-
-        </ol>
-        <a href="../../index.html">Go Back</a>
-        <button class="btn">Clear High Score</button>
+        <ul class="content"></ul>
+        <a href="../../index.html" id="input-btn" class="btn">Go Back</a>
+        <button id="input-btn" class="btn">Clear High Score</button>
     </main>
 
     <script>
         var mainEl = document.querySelector('main');
         var h2El = document.querySelector('h2');
-        var olEl = document.querySelector('ol');
+        var ulEl = document.querySelector('ul');
         var clearButtonEl = document.querySelector('button');
         var nameEl = localStorage.getItem('name');
         var scoreEl = localStorage.getItem('score');
@@ -38,7 +36,7 @@
             highScore.textContent = (nameEl + ': ' + scoreEl);
         };
 
-        olEl.appendChild(highScore);
+        ulEl.appendChild(highScore);
 
         var clearHighScore = function() {
             localStorage.clear();

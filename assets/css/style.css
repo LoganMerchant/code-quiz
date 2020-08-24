@@ -29,7 +29,60 @@ header h2 a {
     color: var(--primary-color);
 }
 
+.title, .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+}
+
 .btn {
-    background-color: aqua;
+    display: flex;
+    background-color: var(--secondary-color);
     margin: 20px;
+    border-radius: 25px;
+    border: none;
+    width: 25%;
+    height: 100px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#submit-btn, #clear-btn {
+    height: 20px;
+    width:  20%;
+}
+
+.btn:hover {
+    opacity: .7;
+}
+
+.answer-confirm {
+    padding: 10px;
+    border-top: solid 1px black;
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+}
+
+li {
+    list-style: none;
+}
+
+input {
+    margin-left: 15px;
+}
+
+button {
+    display: flex;
+    justify-self: center;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+a:hover {
+    opacity: .7;
 }
