@@ -158,7 +158,7 @@ var formatQuestions = function(questionsObj) {
 
         quizChoicesContainer.addEventListener('click', clickedAnswerHandler);
     } else {
-        endQuiz();
+        timeLeft = 0;
     };
 };
 
