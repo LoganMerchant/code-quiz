@@ -8,28 +8,42 @@
     <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-    <h1>High Score</h1>
+    <header>
+        <h2 id="code-quiz" class="nav">
+            <a href="../../index.html">Code Quiz</a>
+        </h2>
+    </header>
 
     <main>
-        <h2></h2>
-        <h3></h3>
-        <a href="../../index.html">Go Back</a>
-        <button class="btn">Clear High Score</button>
+        <h2 class="title">High Score</h2>
+        <ul class="content"></ul>
+        <a href="../../index.html" id="input-btn" class="btn">Go Back</a>
+        <button id="input-btn" class="btn">Clear High Score</button>
     </main>
 
     <script>
         var mainEl = document.querySelector('main');
         var h2El = document.querySelector('h2');
-        var h3El = document.querySelector('h3');
+        var ulEl = document.querySelector('ul');
+        var clearButtonEl = document.querySelector('button');
+        var nameEl = localStorage.getItem('name');
+        var scoreEl = localStorage.getItem('score');
+        var highScore = document.createElement('li');
 
-        h2El.textContent = localStorage.getItem('name');
-        h3El.textContent = localStorage.getItem('score');
+        if (!nameEl || !scoreEl) {
+            highScore.textContent = "";
+        } else {
+            highScore.textContent = (nameEl + ': ' + scoreEl);
+        };
+
+        ulEl.appendChild(highScore);
 
         var clearHighScore = function() {
             localStorage.clear();
+            location.reload();
         };   
 
-        mainEl.addEventListener('click', clearHighScore);
+        clearButtonEl.addEventListener('click', clearHighScore);
     </script>
 </body>
 </html>

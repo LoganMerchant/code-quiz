@@ -2,7 +2,7 @@ var highScoresEl = document.querySelector('#high-scores');
 var timerEl = document.querySelector('#timer');
 var mainEl = document.querySelector("main");
 var titleEl = document.querySelector('.title')
-var infoEl = document.querySelector(".info");
+var descriptionEl = document.querySelector("#description");
 var startButtonEl = document.querySelector('#start-btn');
 var index = 0;
 var timeLeft = 60;
@@ -110,7 +110,7 @@ var startTimer = function() {
 };
 
 var startQuiz = function() {
-    infoEl.remove();
+    descriptionEl.remove();
     startButtonEl.remove();
 
     var quizContainerEl = document.createElement('div');
@@ -120,10 +120,10 @@ var startQuiz = function() {
     titleEl.className = 'title'
 
     var quizChoicesContainer = document.createElement('ul');
-    quizChoicesContainer.className = "btn-container"
+    quizChoicesContainer.className = "content"
     
     var quizAnswerConfirm = document.createElement('p');
-    quizAnswerConfirm.className = 'info'
+    quizAnswerConfirm.className = 'answer-confirm';
 
     quizContainerEl.appendChild(titleEl);
 
@@ -142,7 +142,7 @@ var startQuiz = function() {
 };
 
 var formatQuestions = function(questionsObj) {
-    var quizChoicesContainer = document.querySelector('.btn-container');
+    var quizChoicesContainer = document.querySelector('.content');
     var titleEl = document.querySelector('.title');
     var quizChoice1 = document.querySelector('li[data-id="0"]');
     var quizChoice2 = document.querySelector('li[data-id="1"]');
@@ -158,37 +158,50 @@ var formatQuestions = function(questionsObj) {
 
         quizChoicesContainer.addEventListener('click', clickedAnswerHandler);
     } else {
-        endQuiz();
+        timeLeft = 0;
     };
 };
 
 var endQuiz = function() {
     var quizContainerEl = document.querySelector('.quiz-container');
-    quizContainerEl.remove();
+    quizContainerEl.remove();    
 
+    var scoreInputContainerEl = document.createElement('form');
+    scoreInputContainerEl.className = "content";
+
+    var scoreInput = document.createElement('input');
+    scoreInput.setAttribute('placeholder', 'Your Name');
+    scoreInput.setAttribute('name', 'name')
+    scoreInput.setAttribute('type', 'text');
+
+    var scoreSubmit = document.createElement('button');
+    scoreSubmit.className = 'btn';
+    scoreSubmit.textContent = "Submit";
+    scoreSubmit.setAttribute('id', 'submit-btn');
+    scoreSubmit.setAttribute('type', 'submit');
+    scoreSubmit.setAttribute('value', "Submit");
+    
     timeLeft = 0;
-
-    var quizContainerEl = document.createElement('form');
-    quizContainerEl.className = "quiz-container";
-
-    titleEl.textContent = "Quiz Finished";
-    quizContainerEl.innerHTML = '<label>Save your score!</label> <input type="text" name="name" placeholder="Your Name"></input> <h3>Your score: ' + score + '. <button type="submit" value="Submit">Submit</button>';
-
-    console.log(quizContainerEl);
-    mainEl.appendChild(quizContainerEl);
-
+    
     if (score < localStorage.getItem('score')) {
         window.alert('You did not beat the high score.')
         location.reload();
-    } else if (score > localStorage.getItem('score')) {
+    } else if (score >= localStorage.getItem('score')) {
         window.alert('Congrats! You beat the high score!')
-    }
+    };
 
-    quizContainerEl.addEventListener('submit', saveHighScoreHandler);
+    titleEl.textContent = "Quiz Finished";
+    scoreInputContainerEl.innerHTML = '<label>Save your score of ' + score + '!</label>';
+
+    scoreInputContainerEl.appendChild(scoreInput);
+    scoreInputContainerEl.appendChild(scoreSubmit);
+    mainEl.appendChild(scoreInputContainerEl);
+
+    scoreInputContainerEl.addEventListener('submit', saveHighScoreHandler);
 };
 
 var clickedAnswerHandler = function(event) {
-    var quizAnswerConfirm = document.querySelector('.info');
+    var quizAnswerConfirm = document.querySelector('.answer-confirm');
     var eventTarget = event.target;
     var targetEl = eventTarget.getAttribute('data-id');
 
@@ -205,16 +218,18 @@ var clickedAnswerHandler = function(event) {
     return formatQuestions(questionsObj);
 };
 
-var saveHighScoreHandler = function() {
+var saveHighScoreHandler = function(event) {
+    event.preventDefault();
     var name = document.querySelector('input[name="name"]').value;
+
+    if (!name) {
+            window.alert('Please enter your name.');
+            return;
+    };
 
     localStorage.setItem('score', score);
     localStorage.setItem('name', name);
-
-    if (!name) {
-            window.alert('Please enter your name.')
-            return endQuiz();
-        };
+    location.reload();
 };
 
 startButtonEl.addEventListener('click', startQuiz);
