@@ -204,16 +204,18 @@ var clickedAnswerHandler = function(event) {
     return formatQuestions(questionsObj);
 };
 
-var saveHighScoreHandler = function() {
+var saveHighScoreHandler = function(event) {
+    event.preventDefault();
     var name = document.querySelector('input[name="name"]').value;
-
-    localStorage.setItem('score', score);
-    localStorage.setItem('name', name);
 
     if (!name) {
             window.alert('Please enter your name.');
-            return endQuiz();
-        };
+            return;
+    };
+            
+    localStorage.setItem('score', score);
+    localStorage.setItem('name', name);
+    location.reload();
 };
 
 startButtonEl.addEventListener('click', startQuiz);
