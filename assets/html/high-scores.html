@@ -28,14 +28,21 @@
         var h2El = document.querySelector('h2');
         var olEl = document.querySelector('ol');
         var clearButtonEl = document.querySelector('button');
-        var scoreEl = document.createElement('li');
+        var nameEl = localStorage.getItem('name');
+        var scoreEl = localStorage.getItem('score');
+        var highScore = document.createElement('li');
 
-        scoreEl.textContent = (localStorage.getItem('name') + ': ' + (localStorage.getItem('score')));
+        if (!nameEl || !scoreEl) {
+            highScore.textContent = "";
+        } else {
+            highScore.textContent = (nameEl + ': ' + scoreEl);
+        };
 
-        olEl.appendChild(scoreEl);
+        olEl.appendChild(highScore);
 
         var clearHighScore = function() {
             localStorage.clear();
+            location.reload();
         };   
 
         clearButtonEl.addEventListener('click', clearHighScore);
