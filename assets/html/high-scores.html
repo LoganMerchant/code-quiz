@@ -8,11 +8,17 @@
     <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-    <h1>High Score</h1>
+    <header>
+        <h2 id="code-quiz" class="nav">
+            <a href="../../index.html">Code Quiz</a>
+        </h2>
+    </header>
 
     <main>
-        <h2></h2>
-        <h3></h3>
+        <h2 class="title">High Score</h2>
+        <ol class="content">
+
+        </ol>
         <a href="../../index.html">Go Back</a>
         <button class="btn">Clear High Score</button>
     </main>
@@ -20,16 +26,19 @@
     <script>
         var mainEl = document.querySelector('main');
         var h2El = document.querySelector('h2');
-        var h3El = document.querySelector('h3');
+        var olEl = document.querySelector('ol');
+        var clearButtonEl = document.querySelector('button');
+        var scoreEl = document.createElement('li');
 
-        h2El.textContent = localStorage.getItem('name');
-        h3El.textContent = localStorage.getItem('score');
+        scoreEl.textContent = (localStorage.getItem('name') + ': ' + (localStorage.getItem('score')));
+
+        olEl.appendChild(scoreEl);
 
         var clearHighScore = function() {
             localStorage.clear();
         };   
 
-        mainEl.addEventListener('click', clearHighScore);
+        clearButtonEl.addEventListener('click', clearHighScore);
     </script>
 </body>
 </html>

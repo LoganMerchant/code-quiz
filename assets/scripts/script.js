@@ -181,7 +181,6 @@ var endQuiz = function() {
     titleEl.textContent = "Quiz Finished";
     scoreInputEl.innerHTML = '<label>Save your score!</label> <input type="text" name="name" placeholder="Your Name"></input> <h3>Your score: ' + score + '. <button type="submit" value="Submit">Submit</button>';
 
-    console.log(scoreInputEl);
     mainEl.appendChild(scoreInputEl);
 
     scoreInputEl.addEventListener('submit', saveHighScoreHandler);
