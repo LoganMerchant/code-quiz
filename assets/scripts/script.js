@@ -179,7 +179,7 @@ var endQuiz = function() {
     };
 
     titleEl.textContent = "Quiz Finished";
-    scoreInputEl.innerHTML = '<label>Save your score!</label> <input type="text" name="name" placeholder="Your Name"></input> <h3>Your score: ' + score + '. <button type="submit" value="Submit">Submit</button>';
+    scoreInputEl.innerHTML = '<label>Save your score!</label> <h4>Your score: ' + score + '</h4> <input type="text" name="name" placeholder="Your Name"></input>  <button type="submit" value="Submit">Submit</button>';
 
     mainEl.appendChild(scoreInputEl);
 
@@ -211,7 +211,7 @@ var saveHighScoreHandler = function() {
     localStorage.setItem('name', name);
 
     if (!name) {
-            window.alert('Please enter your name.')
+            window.alert('Please enter your name.');
             return endQuiz();
         };
 };
